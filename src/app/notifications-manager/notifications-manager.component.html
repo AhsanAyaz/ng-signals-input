@@ -1,0 +1,35 @@
+<div class="notif-manager w-full max-w-md mx-auto">
+  <div class="notif-manager__actions mt-4">
+    <button (click)="addNotification()" class="notif-manager__actions__button">
+      Add Notification
+    </button>
+    <button (click)="reset()" class="notif-manager__actions__button">
+      Reset
+    </button>
+  </div>
+  <ul class="w-full flex flex-col gap-6 mt-4">
+    @for (noti of notifications; track noti.uuid) {
+      <li class="flex items-center justify-between gap-4 noti" [ngClass]="{
+        'noti--read': noti.read
+      }">
+        <span class="flex-1">{{noti.text}}</span>
+        <button (click)="removeNotification(noti)" class="notif-manager__actions__button--icon">
+          <span class="material-symbols-outlined">
+            delete_forever
+          </span>
+        </button>
+        <button (click)="markNotification(noti)" class="notif-manager__actions__button--icon">
+          @if (!noti.read) {
+            <span class="material-symbols-outlined">
+              radio_button_unchecked
+            </span>
+          } @else {
+            <span class="material-symbols-outlined">
+              radio_button_checked
+            </span>
+          }
+        </button>
+      </li>
+    }
+  </ul>
+</div>
